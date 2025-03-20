@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Any, List
 
 
@@ -12,4 +13,10 @@ def filter_by_state(list_dict_info: List[Any], state: str = "EXECUTED") -> List[
 
 def sort_by_date(list_dict: List[Any], reverse: bool = True) -> List[Any]:
     """Сортирует список словарей на основе ключа 'date'"""
+    for item in list_dict:
+        try:
+            datetime.fromisoformat(item["date"])
+        except ValueError:
+            raise ValueError(f"Некорректный формат даты: {item['date']}")
+
     return sorted(list_dict, key=lambda x: x["date"], reverse=reverse)
