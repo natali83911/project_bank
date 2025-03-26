@@ -10,6 +10,7 @@ def mask_account_card(user_bank_details: str) -> str:
             numbers_bank_details += char
         elif char.isalpha() or char.isspace():  # Проверка на букву или пробел и добавление в строку с именем
             name_bank_details += char
+    name_bank_details = name_bank_details.strip()  # Удаление лишних пробелов
     if len(numbers_bank_details) == 16:  # проверка по количеству цифр номера карты и маскировка номера
         masked_card_number = f"{name_bank_details} {get_mask_card_number(numbers_bank_details)}"
         return masked_card_number
@@ -23,8 +24,21 @@ def mask_account_card(user_bank_details: str) -> str:
 
 def get_date(date_string: str) -> str:
     """функция преобразует дату в формат 'ДД.ММ.ГГГГ'"""
+
+    # Проверка на пустую строку
+    if not date_string:
+        raise ValueError("Дата не может быть пустой строкой.")
+
+    # Проверка на корректный формат даты
+    if "T" not in date_string:
+        raise ValueError("Некорректный формат даты. Ожидается 'ГГГГ-ММ-ДДTЧЧ:ММ:СС'.")
+
     # Разделение строки на 2 части по "Т", а также по "-" части строки с индексом 0
     parts = date_string.split("T")[0].split("-")
+
+    # Проверка на корректное количество частей
+    if len(parts) != 3:
+        raise ValueError("Некорректный формат даты. Ожидается 'ГГГГ-ММ-ДД'.")
 
     # Извлечение год, месяц, день
     year, month, day = parts

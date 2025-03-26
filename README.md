@@ -33,6 +33,12 @@
 
     ```
     poetry install
+    poetry add --group lint flake8
+    poetry add --group lint mypy
+    poetry add --group lint black
+    poetry add --group lint isort
+    poetry add --group dev pytest
+    
     ```
 
 ## Использование
@@ -79,6 +85,25 @@ sorted_transactions = sort_by_date(transactions)
 print(f"Sorted transactions: {sorted_transactions}")
 
 ~~~
+
+## Тестирование
+
+В проекте используются тесты, написанные с использованием `pytest`. Для запуска тестов выполните следующие шаги:
+
+1. **Убедитесь, что установлены все зависимости (см. раздел "Установка").**
+2. **Активируйте виртуальное окружение Poetry:**
+
+~~~
+    poetry env activate
+    
+~~~
+3. **Запустите тесты с помощью команды `pytest`:**
+
+~~~
+    pytest tests
+    
+~~~
+
 
 ## Зависимости
 
