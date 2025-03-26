@@ -15,12 +15,6 @@ def valid_account_number() -> str:
     return "73654108430135874305"
 
 
-# Фикстура для генерации даты
-@pytest.fixture
-def valid_date_string() -> str:
-    return "2023-10-26T00:00:00"
-
-
 # Фикстуры для генерации списка словарей
 @pytest.fixture
 def list_dict_info() -> List[Any]:
