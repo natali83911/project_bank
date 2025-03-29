@@ -23,6 +23,8 @@ def card_number_generator(start: int, end: int) -> Iterator[str]:
     Возвращает итератор, выдающий номера банковских карт в формате XXXX XXXX XXXX XXXX.
 
     """
+    if start > end:
+        raise ValueError("Начальное значение должно быть меньше или равно конечному")
     for number in range(start, end + 1):
         formatted_number = "{:016d}".format(number)
         yield "{} {} {} {}".format(
