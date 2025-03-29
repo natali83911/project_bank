@@ -12,6 +12,9 @@
 -   `get_date(date_string: str) -> str`: Преобразует дату в формат 'ДД.ММ.ГГГГ'.
 -   `filter_by_state(list_dict_info: List[Dict], state: str = "EXECUTED") -> List[Dict]`: Фильтрует список словарей на основе указанного параметра `state`.
 -   `sort_by_date(list_dict: List[Dict], reverse: bool = True) -> List[Dict]`: Сортирует список словарей на основе ключа 'date'.
+-   `filter_by_currency(transactions: list[Dict[str, Any]], currency_code: str) -> Iterator[Dict[str, Any]]`: Возвращает итератор, выдающий транзакции с указанной валютой.
+-   `transaction_descriptions(transactions: list[Dict[str, Any]]) -> Iterator[str]`: Возвращает итератор, выдающий описания транзакций по очереди.
+-   `card_number_generator(start: int, end: int) -> Iterator[str]`: Возвращает итератор, выдающий номера банковских карт в формате `XXXX XXXX XXXX XXXX`.
 
 ## Установка
 
@@ -46,8 +49,6 @@
 Примеры использования функций:
 
 ~~~
-from src.widget import get_mask_card_number, get_mask_account, mask_account_card, get_date, filter_by_state, sort_by_date
-from typing import Dict, List
 
 Маскировка номера карты
 card_number = "6831982470375048"
@@ -59,15 +60,18 @@ account_number = "12345678901234567890"
 masked_account = get_mask_account(account_number)
 print(f"Masked account number: {masked_account}") # Output: **7890
 
+
 Маскировка информации о карте/счете
 bank_details = "Visa Classic 6831982470375048"
 masked_details = mask_account_card(bank_details)
 print(f"Masked details: {masked_details}") # Output: Visa Classic 6831 98** **** 5048
 
+
 Преобразование даты
 date_string = "2023-10-26T00:00:00"
 formatted_date = get_date(date_string)
 print(f"Formatted date: {formatted_date}") # Output: 26.10.2023
+
 
 Пример данных для фильтрации и сортировки
 transactions: List[Dict] = [
@@ -80,9 +84,42 @@ transactions: List[Dict] = [
 executed_transactions = filter_by_state(transactions, state="EXECUTED")
 print(f"Executed transactions: {executed_transactions}")
 
+
 Сортировка по дате
 sorted_transactions = sort_by_date(transactions)
 print(f"Sorted transactions: {sorted_transactions}")
+
+
+Танзакции с указанной валютой и описания транзакций по очереди.
+transactions = [
+{
+"id": 939719570,
+"state": "EXECUTED",
+"date": "2018-06-30T02:08:58.425572",
+"operationAmount": {
+"amount": "9824.07",
+"currency": {
+"name": "USD",
+"code": "USD"
+}
+},
+"description": "Перевод организации",
+"from": "Счет 75106830613657916952",
+"to": "Счет 11776614605963066702"
+}
+]
+
+for transaction in filter_by_currency(transactions, "USD"):
+print(transaction)
+
+for description in transaction_descriptions(transactions):
+print(description)
+
+
+Номера банковских карт в формате `XXXX XXXX XXXX XXXX`.
+for card_number in card_number_generator(1, 10):
+print(card_number)
+
 
 ~~~
 
