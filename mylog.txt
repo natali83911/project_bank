@@ -1,0 +1,20 @@
+my_function called at 2025-04-02 21:00:55
+my_function ok
+my_function called at 2025-04-02 21:01:30
+my_function error: TypeError. Inputs: (1, 2), {}
+my_function called at 2025-04-02 21:02:15
+my_function error: TypeError. Inputs: (2,), {}
+my_function called at 2025-04-02 21:10:53
+my_function ok
+add called at 2025-04-03 16:32:29
+add ok
+fail_func called at 2025-04-03 16:32:29
+fail_func error: ValueError. Inputs: (), {}
+add called at 2025-04-03 16:45:46
+add ok
+fail_func called at 2025-04-03 16:45:46
+fail_func error: ValueError. Inputs: (), {}
+add called at 2025-04-03 16:46:25
+add ok
+fail_func called at 2025-04-03 16:46:25
+fail_func error: ValueError. Inputs: (), {}
