@@ -15,6 +15,7 @@
 -   `filter_by_currency(transactions: list[Dict[str, Any]], currency_code: str) -> Iterator[Dict[str, Any]]`: Возвращает итератор, выдающий транзакции с указанной валютой.
 -   `transaction_descriptions(transactions: list[Dict[str, Any]]) -> Iterator[str]`: Возвращает итератор, выдающий описания транзакций по очереди.
 -   `card_number_generator(start: int, end: int) -> Iterator[str]`: Возвращает итератор, выдающий номера банковских карт в формате `XXXX XXXX XXXX XXXX`.
+-   ` log `: декоратор, который будет автоматически регистрировать детали выполнения функций, такие как время вызова, имя функции, передаваемые аргументы, результат выполнения и информация об ошибках.
 
 ## Установка
 
@@ -119,6 +120,14 @@ print(description)
 Номера банковских карт в формате `XXXX XXXX XXXX XXXX`.
 for card_number in card_number_generator(1, 10):
 print(card_number)
+
+декоратор функций 
+@log(filename="mylog.txt")
+def my_function(x, y):
+    return x + y
+
+my_function(1, 2)
+
 
 
 ~~~
