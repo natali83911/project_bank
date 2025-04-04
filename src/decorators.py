@@ -4,6 +4,9 @@ from typing import Callable, Optional, Any
 
 
 def log(filename: Optional[str] = None) -> Callable:
+    """Функция-декоратор для автоматическго логирования выполнения функций. Принимает необязательный аргумент
+    filename, который определяет, куда будут записываться логи (в файл или в консоль)"""
+
     def decorator(func: Callable) -> Callable:
         @wraps(func)
         def wrapper(*args, **kwargs) -> Any:
