@@ -95,12 +95,27 @@
 #     print(card_number)
 
 
-from src.decorators import log
+# from src.decorators import log
+#
+# @log(filename="mylog.txt")
+# def my_function(x, y):
+#     return x + y
+#
+# my_function(1, 2)
 
-@log(filename="mylog.txt")
-def my_function(x, y):
-    return x + y
+import os
 
-my_function(1, 2)
+from src.utils import load_transactions_from_json
 
+MAIN_DIR = os.path.dirname(os.path.abspath(__file__))
 
+file_path = os.path.join(MAIN_DIR, "data", "operations.json")
+print(file_path)
+
+transactions = load_transactions_from_json(file_path)
+
+if transactions:
+    for transaction in transactions:
+        print(transaction)
+else:
+    print("Не удалось загрузить транзакции.")
