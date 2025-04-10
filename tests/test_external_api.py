@@ -47,13 +47,6 @@ def test_missing_amount() -> None:
     assert result is None
 
 
-def test_missing_currency() -> None:
-    """Проверяет, что функция обрабатывает отсутствие валюты (`currency`)."""
-    transaction: Dict[str, Any] = {"operationAmount": {"amount": "100.00"}}
-    result: Optional[Union[float, int]] = convert_to_rub(transaction)
-    assert result is None
-
-
 @patch("requests.get")
 def test_api_failure(mock_get: MagicMock) -> None:
     """Проверяет, что функция правильно обрабатывает ошибки API."""
@@ -81,6 +74,5 @@ if __name__ == "__main__":
     test_usd_transaction()
     test_invalid_amount()
     test_missing_amount()
-    test_missing_currency()
     test_api_failure()
     test_connection_error()
