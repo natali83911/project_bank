@@ -103,19 +103,50 @@
 #
 # my_function(1, 2)
 
+# import os
+#
+# from src.utils import load_transactions_from_json
+#
+# MAIN_DIR = os.path.dirname(os.path.abspath(__file__))
+#
+# file_path = os.path.join(MAIN_DIR, "data", "operations.json")
+# print(file_path)
+#
+# transactions = load_transactions_from_json(file_path)
+#
+# if transactions:
+#     for transaction in transactions:
+#         print(transaction)
+# else:
+#     print("Не удалось загрузить транзакции.")
+
+
 import os
 
+from dotenv import load_dotenv
+
+from src.external_api import convert_to_rub
 from src.utils import load_transactions_from_json
 
-MAIN_DIR = os.path.dirname(os.path.abspath(__file__))
+load_dotenv()
 
-file_path = os.path.join(MAIN_DIR, "data", "operations.json")
-print(file_path)
+API_KEY = os.getenv("API_KEY")
 
-transactions = load_transactions_from_json(file_path)
 
-if transactions:
+def main() -> None:
+    MAIN_DIR = os.path.dirname(os.path.abspath(__file__))
+
+    file_path = os.path.join(MAIN_DIR, "data", "operations.json")
+
+    transactions = load_transactions_from_json(file_path)
+
     for transaction in transactions:
-        print(transaction)
-else:
-    print("Не удалось загрузить транзакции.")
+        result = convert_to_rub(transaction)
+        if result is not None:
+            print(f"Транзакция: {result} RUB")
+        else:
+            print(f"Ошибка конвертации для транзакции {transaction['id']}")
+
+
+if __name__ == "__main__":
+    main()
