@@ -18,3 +18,15 @@ add called at 2025-04-03 16:46:25
 add ok
 fail_func called at 2025-04-03 16:46:25
 fail_func error: ValueError. Inputs: (), {}
+add called at 2025-04-10 16:45:44
+add ok
+fail_func called at 2025-04-10 16:45:44
+fail_func error: ValueError. Inputs: (), {}
+add called at 2025-04-10 16:47:31
+add ok
+fail_func called at 2025-04-10 16:47:31
+fail_func error: ValueError. Inputs: (), {}
+add called at 2025-04-10 17:11:46
+add ok
+fail_func called at 2025-04-10 17:11:46
+fail_func error: ValueError. Inputs: (), {}

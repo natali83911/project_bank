@@ -15,6 +15,10 @@ def convert_to_rub(transaction: Dict) -> Any:
     amount = operation_amount.get("amount", 0)
     currency = operation_amount.get("currency", {}).get("code", "RUB").upper()
 
+    if not currency:
+        print("Ошибка: Отсутствует код валюты.")
+        return None
+
     if amount and currency:
         try:
             amount = float(amount)
@@ -33,7 +37,7 @@ def convert_to_rub(transaction: Dict) -> Any:
         status_code = response.status_code
 
         if status_code == 200:
-            return response.json()["result"]
+            return float(response.json()["result"])
         else:
             print(f"Запрос не был успешным. Возможная причина: {response.reason}")
             return None
