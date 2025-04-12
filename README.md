@@ -15,7 +15,9 @@
 -   `filter_by_currency(transactions: list[Dict[str, Any]], currency_code: str) -> Iterator[Dict[str, Any]]`: Возвращает итератор, выдающий транзакции с указанной валютой.
 -   `transaction_descriptions(transactions: list[Dict[str, Any]]) -> Iterator[str]`: Возвращает итератор, выдающий описания транзакций по очереди.
 -   `card_number_generator(start: int, end: int) -> Iterator[str]`: Возвращает итератор, выдающий номера банковских карт в формате `XXXX XXXX XXXX XXXX`.
--   ` log `: декоратор, который будет автоматически регистрировать детали выполнения функций, такие как время вызова, имя функции, передаваемые аргументы, результат выполнения и информация об ошибках.
+-   `log`: декоратор, который будет автоматически регистрировать детали выполнения функций, такие как время вызова, имя функции, передаваемые аргументы, результат выполнения и информация об ошибках.
+-   `load_transactions_from_json`: Загружает список финансовых транзакций из JSON-файла. Возвращает пустой список, если файл не найден, пуст или содержит не список.
+-   `convert_to_rub`: Конвертирует сумму транзакции в рубли. Для USD/EUR использует текущий курс через API
 
 ## Установка
 
@@ -127,6 +129,21 @@ def my_function(x, y):
     return x + y
 
 my_function(1, 2)
+
+
+для функции, возвращающей список финансовых транзакций из JSON-файла
+MAIN_DIR = os.path.dirname(os.path.abspath(__file__))
+
+file_path = os.path.join(MAIN_DIR, "data", "operations.json")
+print(file_path)
+
+transactions = load_transactions_from_json(file_path)
+
+if transactions:
+    for transaction in transactions:
+        print(transaction)
+else:
+    print("Не удалось загрузить транзакции.")
 
 
 

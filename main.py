@@ -95,12 +95,58 @@
 #     print(card_number)
 
 
-from src.decorators import log
+# from src.decorators import log
+#
+# @log(filename="mylog.txt")
+# def my_function(x, y):
+#     return x + y
+#
+# my_function(1, 2)
 
-@log(filename="mylog.txt")
-def my_function(x, y):
-    return x + y
+# import os
+#
+# from src.utils import load_transactions_from_json
+#
+# MAIN_DIR = os.path.dirname(os.path.abspath(__file__))
+#
+# file_path = os.path.join(MAIN_DIR, "data", "operations.json")
+# print(file_path)
+#
+# transactions = load_transactions_from_json(file_path)
+#
+# if transactions:
+#     for transaction in transactions:
+#         print(transaction)
+# else:
+#     print("Не удалось загрузить транзакции.")
 
-my_function(1, 2)
+
+import os
+
+from dotenv import load_dotenv
+
+from src.external_api import convert_to_rub
+from src.utils import load_transactions_from_json
+
+load_dotenv()
+
+API_KEY = os.getenv("API_KEY")
 
 
+def main() -> None:
+    MAIN_DIR = os.path.dirname(os.path.abspath(__file__))
+
+    file_path = os.path.join(MAIN_DIR, "data", "operations.json")
+
+    transactions = load_transactions_from_json(file_path)
+
+    for transaction in transactions:
+        result = convert_to_rub(transaction)
+        if result is not None:
+            print(f"Транзакция: {result} RUB")
+        else:
+            print(f"Ошибка конвертации для транзакции {transaction['id']}")
+
+
+if __name__ == "__main__":
+    main()
