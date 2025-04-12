@@ -1,11 +1,12 @@
-# from src.masks import get_mask_card_number, get_mask_account
-# card_number = "1234567890123456"
-# masked_card = get_mask_card_number(card_number)
-# print(f"Masked card number: {masked_card}")
-#
-# account_number = "12345678901234567890"
-# masked_account = get_mask_account(account_number)
-# print(f"Masked account number: {masked_account}")
+from src.masks import get_mask_card_number, get_mask_account
+
+card_number = "1234567890123456"
+masked_card = get_mask_card_number(card_number)
+print(f"Masked card number: {masked_card}")
+
+account_number = "12345678901234567890"
+masked_account = get_mask_account(account_number)
+print(f"Masked account number: {masked_account}")
 
 
 # from src.widget import mask_account_card, get_date
@@ -103,50 +104,50 @@
 #
 # my_function(1, 2)
 
-# import os
-#
-# from src.utils import load_transactions_from_json
-#
-# MAIN_DIR = os.path.dirname(os.path.abspath(__file__))
-#
-# file_path = os.path.join(MAIN_DIR, "data", "operations.json")
-# print(file_path)
-#
-# transactions = load_transactions_from_json(file_path)
-#
-# if transactions:
-#     for transaction in transactions:
-#         print(transaction)
-# else:
-#     print("Не удалось загрузить транзакции.")
-
-
 import os
 
-from dotenv import load_dotenv
-
-from src.external_api import convert_to_rub
 from src.utils import load_transactions_from_json
 
-load_dotenv()
+MAIN_DIR = os.path.dirname(os.path.abspath(__file__))
 
-API_KEY = os.getenv("API_KEY")
+file_path = os.path.join(MAIN_DIR, "data", "operations.json")
+print(file_path)
 
+transactions = load_transactions_from_json(file_path)
 
-def main() -> None:
-    MAIN_DIR = os.path.dirname(os.path.abspath(__file__))
-
-    file_path = os.path.join(MAIN_DIR, "data", "operations.json")
-
-    transactions = load_transactions_from_json(file_path)
-
+if transactions:
     for transaction in transactions:
-        result = convert_to_rub(transaction)
-        if result is not None:
-            print(f"Транзакция: {result} RUB")
-        else:
-            print(f"Ошибка конвертации для транзакции {transaction['id']}")
+        print(transaction)
+else:
+    print("Не удалось загрузить транзакции.")
 
 
-if __name__ == "__main__":
-    main()
+# import os
+#
+# from dotenv import load_dotenv
+#
+# from src.external_api import convert_to_rub
+# from src.utils import load_transactions_from_json
+#
+# load_dotenv()
+#
+# API_KEY = os.getenv("API_KEY")
+#
+#
+# def main() -> None:
+#     MAIN_DIR = os.path.dirname(os.path.abspath(__file__))
+#
+#     file_path = os.path.join(MAIN_DIR, "data", "operations.json")
+#
+#     transactions = load_transactions_from_json(file_path)
+#
+#     for transaction in transactions:
+#         result = convert_to_rub(transaction)
+#         if result is not None:
+#             print(f"Транзакция: {result} RUB")
+#         else:
+#             print(f"Ошибка конвертации для транзакции {transaction['id']}")
+#
+#
+# if __name__ == "__main__":
+#     main()
