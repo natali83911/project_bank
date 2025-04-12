@@ -1,0 +1,2 @@
+2025-04-12 21:16:24,564 - utils.py - DEBUG: Начинаем загрузку транзакций из файла: C:\Users\User\project_bank\data\operations.json
+2025-04-12 21:16:24,564 - utils.py - DEBUG: Файл C:\Users\User\project_bank\data\operations.json открыт успешно.
