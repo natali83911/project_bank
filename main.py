@@ -1,12 +1,12 @@
-from src.masks import get_mask_card_number, get_mask_account
-
-card_number = "1234567890123456"
-masked_card = get_mask_card_number(card_number)
-print(f"Masked card number: {masked_card}")
-
-account_number = "12345678901234567890"
-masked_account = get_mask_account(account_number)
-print(f"Masked account number: {masked_account}")
+# from src.masks import get_mask_card_number, get_mask_account
+#
+# card_number = "1234567890123456"
+# masked_card = get_mask_card_number(card_number)
+# print(f"Masked card number: {masked_card}")
+#
+# account_number = "12345678901234567890"
+# masked_account = get_mask_account(account_number)
+# print(f"Masked account number: {masked_account}")
 
 
 # from src.widget import mask_account_card, get_date
@@ -104,22 +104,22 @@ print(f"Masked account number: {masked_account}")
 #
 # my_function(1, 2)
 
-import os
-
-from src.utils import load_transactions_from_json
-
-MAIN_DIR = os.path.dirname(os.path.abspath(__file__))
-
-file_path = os.path.join(MAIN_DIR, "data", "operations.json")
-print(file_path)
-
-transactions = load_transactions_from_json(file_path)
-
-if transactions:
-    for transaction in transactions:
-        print(transaction)
-else:
-    print("Не удалось загрузить транзакции.")
+# import os
+#
+# from src.utils import load_transactions_from_json
+#
+# MAIN_DIR = os.path.dirname(os.path.abspath(__file__))
+#
+# file_path = os.path.join(MAIN_DIR, "data", "operations.json")
+# print(file_path)
+#
+# transactions = load_transactions_from_json(file_path)
+#
+# if transactions:
+#     for transaction in transactions:
+#         print(transaction)
+# else:
+#     print("Не удалось загрузить транзакции.")
 
 
 # import os
@@ -151,3 +151,10 @@ else:
 #
 # if __name__ == "__main__":
 #     main()
+
+
+from src.transactions import count_fin_transactions_csv, count_fin_transactions_excel
+from config import PATH_TO_EXCEL, PATH_TO_CSV
+
+print(count_fin_transactions_excel(PATH_TO_EXCEL))
+print(count_fin_transactions_csv(PATH_TO_CSV))

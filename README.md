@@ -17,7 +17,9 @@
 -   `card_number_generator(start: int, end: int) -> Iterator[str]`: Возвращает итератор, выдающий номера банковских карт в формате `XXXX XXXX XXXX XXXX`.
 -   `log`: декоратор, который будет автоматически регистрировать детали выполнения функций, такие как время вызова, имя функции, передаваемые аргументы, результат выполнения и информация об ошибках.
 -   `load_transactions_from_json`: Загружает список финансовых транзакций из JSON-файла. Возвращает пустой список, если файл не найден, пуст или содержит не список.
--   `convert_to_rub`: Конвертирует сумму транзакции в рубли. Для USD/EUR использует текущий курс через API
+-   `convert_to_rub`: Конвертирует сумму транзакции в рубли. Для USD/EUR использует текущий курс через API.
+-   `count_fin_transactions_csv`: Функция для считывания финансовых операций из CSV файла и возврата списка словарей.
+-   `count_fin_transactions_excel`: Функция для считывания финансовых операций из XLSX-файла и возврата списка словарей.
 
 ## Установка
 
@@ -44,6 +46,9 @@
     poetry add --group lint black
     poetry add --group lint isort
     poetry add --group dev pytest
+    poetry add python-dotenv
+    poetry add pandas
+    poetry add openpyxl
     
     ```
 
@@ -144,7 +149,10 @@ if transactions:
         print(transaction)
 else:
     print("Не удалось загрузить транзакции.")
-
+    
+    
+print(count_fin_transactions_excel(PATH_TO_EXCEL))
+print(count_fin_transactions_csv(PATH_TO_CSV))
 
 
 ~~~
