@@ -6,8 +6,11 @@ def filter_by_currency(transactions: list[Dict[str, Any]], currency_code: str) -
     Возвращает итератор, выдающий транзакции с указанной валютой.
     """
     for transaction in transactions:
-        if transaction["operationAmount"]["currency"]["code"] == currency_code:
-            yield transaction
+        try:
+            if transaction.get("operationAmount", {}).get("currency", {}).get("code") == currency_code:
+                yield transaction
+        except AttributeError:
+            continue
 
 
 def transaction_descriptions(transactions: list[Dict[str, Any]]) -> Iterator[str]:
@@ -15,7 +18,7 @@ def transaction_descriptions(transactions: list[Dict[str, Any]]) -> Iterator[str
     Возвращает итератор, выдающий описания транзакций по очереди.
     """
     for transaction in transactions:
-        yield transaction["description"]
+        yield transaction.get("description")
 
 
 def card_number_generator(start: int, end: int) -> Iterator[str]:

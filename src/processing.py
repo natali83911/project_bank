@@ -6,7 +6,7 @@ def filter_by_state(list_dict_info: List[Any], state: str = "EXECUTED") -> List[
     """Функция фильтрует данные по указанному параметру"""
     new_filter_list = []
     for element in list_dict_info:
-        if element["state"] == state:
+        if element.get("state") == state:
             new_filter_list.append(element)
     return new_filter_list
 

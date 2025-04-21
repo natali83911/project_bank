@@ -1,0 +1,4 @@
+add called at 2025-04-21 13:14:32
+add ok
+fail_func called at 2025-04-21 13:14:32
+fail_func error: ValueError. Inputs: (), {}

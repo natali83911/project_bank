@@ -7,8 +7,27 @@ def search_transactions(transactions: List[Dict], search_str: str) -> List[Dict]
     """Фильтрует список операций, возвращая только те словари,
     у которых в поле 'description' есть совпадение с search_str (регулярное выражение)."""
 
-    pattern = re.compile(search_str, re.IGNORECASE)  # игнорируем регистр для удобства поиска
-    filtered = [tran for tran in transactions if "description" in tran and pattern.search(tran["description"])]
+    filtered = []
+
+    # Компилируем регулярное выражение с флагом IGNORECASE
+    try:
+        pattern = re.compile(re.escape(search_str), re.IGNORECASE)
+    except re.error:
+        # Если некорректный паттерн (например, незакрытые скобки)
+        pattern = re.compile(re.escape(""), re.IGNORECASE)  # Пустой паттерн
+
+    for transaction in transactions:
+        try:
+            description = transaction.get("description", "")
+
+            # Ищем как подстроку в любом месте описания
+            if pattern.search(description):
+                filtered.append(transaction)
+
+        except (AttributeError, KeyError):
+            # Пропускаем транзакции с некорректной структурой
+            continue
+
     return filtered
 
 

@@ -1,9 +1,21 @@
 import json
 import logging
+import os
 from typing import Any, Dict, List
 
+current_dir = os.path.dirname(os.path.abspath(__file__))  # Директория src/
+project_root = os.path.join(current_dir, "..")  # Переходим на уровень выше (корень проекта)
+
+# Создаем папку logs в корне проекта, если её нет
+logs_dir = os.path.join(project_root, "logs")
+os.makedirs(logs_dir, exist_ok=True)
+
+# Создаем путь к файлу utils.log
+log_file_path = os.path.join(logs_dir, "utils.log")
+
+
 logger = logging.getLogger(__name__)
-file_handler = logging.FileHandler("logs/utils.log", "w", encoding="utf-8")
+file_handler = logging.FileHandler(log_file_path, mode="w", encoding="utf-8")
 file_formatter = logging.Formatter("%(asctime)s - %(filename)s - %(levelname)s: %(message)s")
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
@@ -34,12 +46,3 @@ def load_transactions_from_json(file_path: str) -> List[Dict[str, Any]]:
     except Exception as e:
         logger.critical(f"Критическая ошибка при загрузке файла {file_path}: {str(e)}")
         return []
-
-
-# Пример использования (для проверки)
-# PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-#
-# if __name__ == "__main__":
-#     file_path = os.path.join(PROJECT_ROOT, "data", "operations.json")
-#     transactions = load_transactions_from_json(file_path)
-#     print(transactions)
